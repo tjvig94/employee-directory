@@ -1,15 +1,23 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React from 'react';
-import axios from 'axios';
+import axios from 'axios'
+// const axios = require('axios');
 
-async function getUser() {
-    try {
-        const user = await axios.get('https://randomuser.me/api/?inc=name,email,phone,picture');
-        const { name, email, phone, picture } = user.data.results[0];
-        return { name, email, phone, picture };
-    } catch (err) {
-        console.log(err);
-    }
+async function getUsers() {
+    return await axios.get('https://randomuser.me/api/?results=10&inc=name,email,phone,picture').then(res => {
+        const users = res.data.results;
+        return users.map(user => {
+            return {
+                first: user.name.first,
+                last: user.name.last,
+                email: user.email,
+                phone: user.phone,
+                image: user.picture.thumbnail
+            }
+        })
+    })
+   
 }
 
-export default getUser;
+getUsers().then(res => console.log(res))
+
+export default getUsers;
