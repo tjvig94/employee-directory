@@ -3,7 +3,7 @@ import axios from 'axios'
 // const axios = require('axios');
 
 async function getUsers() {
-    return await axios.get('https://randomuser.me/api/?results=10&inc=name,email,phone,picture').then(res => {
+    return await axios.get('https://randomuser.me/api/?results=30&inc=name,email,phone,picture').then(res => {
         const users = res.data.results;
         return users.map(user => {
             return {
